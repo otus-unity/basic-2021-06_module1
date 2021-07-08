@@ -32,6 +32,7 @@ namespace Assets.Scripts.Character
         {
             Pistol,
             Bat,
+            Punch
         }
 
         Animator animator;
@@ -81,6 +82,9 @@ namespace Assets.Scripts.Character
             switch (weapon)
             {
                 case Weapon.Bat:
+                    state = State.RunningToEnemy;
+                    break;
+                case Weapon.Punch:
                     state = State.RunningToEnemy;
                     break;
                 case Weapon.Pistol:
@@ -140,7 +144,11 @@ namespace Assets.Scripts.Character
                     break;
 
                 case State.BeginAttack:
-                    animator.SetTrigger("MeleeAttack");
+                    if (weapon == Weapon.Bat)
+                        animator.SetTrigger("MeleeAttack");
+                    else
+                        animator.SetTrigger("PunchAttack");
+
                     state = State.Attack;
                     break;
 
